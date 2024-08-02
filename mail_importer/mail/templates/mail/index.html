@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mail Importer</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Mail Importer</h1>
+    <button id="start-import">Start Import</button>
+    <div id="progress-container" style="display: none;">
+        <h2>Loading Messages...</h2>
+        <div id="progress-bar" style="width: 0; height: 30px; background-color: green;"></div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#start-import').click(function() {
+                $('#progress-container').show();
+                $.ajax({
+                    url: '/api/messages/',
+                    method: 'POST',
+                    data: {
+                        // Assuming email_account ID is 1, adjust as needed
+                        email_account: 1
+                    },
+                    success: function() {
+                        $('#progress-bar').css('width', '100%');
+                        alert('Import complete');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
